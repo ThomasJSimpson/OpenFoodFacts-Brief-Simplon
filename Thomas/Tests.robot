@@ -1,38 +1,133 @@
 *** Settings ***
-Library     AppiumLibrary
-Test Setup    Ouvrir App
+# Cette library est native
+Library    String
+# installer la bibliothèque avec la commande suivante : pip install robotframework-faker
+Library    FakerLibrary    locale=fr_FR
+# Appeler la library AppuimLibrary après les deux autres
+Library    AppiumLibrary
 
-*** Keywords ***
-Ouvrir App
-    [Documentation]    Ouvrir l'application mobile pour préparer les tests suivants.
-    Open Application    http://127.0.0.1:4723
-    ...    platformName=Android
-    ...    appium:automationName=UIAutomator2
-    ...    appium:appPackage=com.wdiodemoapp
-    ...    appium:appActivity=.MainActivity
-    ...    appium:noReset=${True}
-    ...    appium:dontStopAppOnReset=${True}
-    ...    appium:ensureWebviewsHavePages=${True}
-    ...    appium:nativeWebScreenshot=${True}
-    ...    appium:newCommandTimeout=${3600}
-    ...    appium:connectHardwareKeyboard=${True}
+Test Setup    Ouvrir App
+# Test Teardown    Terminate Application    openfoodfacts.github.scrachx.openfood
+
+*** Variables ***
+# Configuration Appium
+${URL_APPIUM}    http://127.0.0.1:4723
 
 *** Test Cases ***
 
-MyFirstTest
-    [Documentation]    Test de la connexion "Login"
-    Click Element    accessibility_id=Login
-    Wait Until Page Contains    Login / Sign up    timeout=10s
+Creation de Compte + Déconnexion + Reconnexion + Ajout produit 
+    [Documentation]    Génère des données uniques + inscription + connexion + ajout produit
+    
+    # 1. Génération des données dynamiques
+    ${nom_complet}=      FakerLibrary.Name
+    ${pseudo}=           Generer Pseudo Unique
+    ${email}=            Generer Email Point Com
+    ${mot_de_passe}=     Generate Random String    12    [LETTERS][NUMBERS]
 
-    Input Text    accessibility_id=input-email    test@gmail.com
-    Input Text    accessibility_id=input-password    bonjouwwwww
+    
+    # Pouvoir lire les infos dans la console
+    Log To Console    Nom: ${nom_complet}
+    Log To Console    Pseudo: ${pseudo}
+    Log To Console    Email: ${email}
+    Log To Console    MDP: ${mot_de_passe}
+    
+    #Acces a l'onglet "Communauté"
+    Click Element    accessibility_id=Communauté 
+    Wait Until Page Contains    Créer un compte    timeout=15s
+    
+    # Click sur "Créer un compte"
+    Click Element    accessibility_id=Créer un compte 
 
-    Click Element    accessibility_id=button-LOGIN
+    # Vérifie que le bouton "S'inscrire" s'affiche et le stock pour cliquer plus tard dessus
+    ${el0}=    Set Variable    android=new UiSelector().description("S'inscrire")
+    Wait Until Element Is Visible   ${el0}    timeout=15s
 
-    Wait Until Page Contains    You are logged in!    timeout=10s
-    Page Should Contain Text    You are logged in!
+    # Nom complet
+    ${el1}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(0)
+    Click Element    ${el1}
+    Input Text    ${el1}    ${nom_complet}
 
-    Click Element    id=android:id/button1
+    # Email
+    ${el2}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(1)
+    Click Element    ${el2}
+    Input Text    ${el2}    ${email}
 
-    Wait Until Page Does Not Contain    You are logged in!    timeout=5s
-    Page Should Not Contain Text    You are logged in!
+    # UserName
+    ${el3}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(2)
+    Click Element    ${el3}
+    Input Text    ${el3}    ${pseudo}
+
+    # Password 1
+    ${el4}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(3)
+    Click Element    ${el4}
+    Input Text    ${el4}    ${mot_de_passe}
+
+    # Password 2 (vérif.)
+    ${el5}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(4)
+    Click Element    ${el5}
+    Input Text    ${el5}    ${mot_de_passe}
+    
+    # Acceptation conditions d'utilisation en cliquant sur le switch + vérif
+    ${el6}=    Set Variable    android=new UiSelector().description("Je suis d'accord avec les ")
+    Click Element    ${el6}
+    
+    # Vérif. switch activé
+    ${checkStatus}=    Get Element Attribute    android=new UiSelector().className("android.widget.Switch").instance(0)    checked
+    Should Be Equal As Strings    ${checkStatus}    true
+    # Click sur "S'inscrire"
+    Click Element    ${el0}
+    
+    # Vérif. message de validation + OK + affichage status connecté
+    ${el7}=    Set Variable    accessibility_id=Toutes nos félicitations ! Votre compte vient d'être créé.
+    Wait Until Element Is Visible    ${el7}    timeout=15s
+    Click Element    accessibility_id=Ok
+
+    # Vérif "connecté"
+    ${el8}=    Set Variable    accessibility_id=${pseudo}
+    Wait Until Element Is Visible    ${el8}    timeout=15s
+    Wait Until Page Contains    Merci d'être l'un de nos membres !    timeout=15s
+
+    # Déconnexion
+    Click Element    accessibility_id=Gérez votre compte
+    Click Element    accessibility_id=Se déconnecter
+    Click Element    accessibility_id=Oui
+
+    # Connexion
+    Click Element    accessibility_id=Se connecter
+    ${el9}=    Set Variable    android=new UiSelector().className("android.widget.EditText").instance(0)
+    Click Element    ${el9}
+    Input Text    ${el9}    ${email}
+    ${el10}=    Set Variable    android=new UiSelector().className("android.widget.EditText").instance(1)
+    Click Element    ${el10}
+    Input Text    ${el10}    ${mot_de_passe}
+    Click Element   xpath=//android.widget.Button[@content-desc="Se connecter"]
+    Wait Until Element Is Visible    ${el8}    timeout=15s
+    Wait Until Page Contains    Merci d'être l'un de nos membres !    timeout=15s
+*** Keywords ***
+
+Generer Pseudo Unique
+    [Documentation]    Crée un pseudo
+    ${random_suffix}=    Generate Random String    4    [LOWER][NUMBERS]
+    ${pseudo}=           Set Variable    user${random_suffix}
+    RETURN               ${pseudo}
+
+Generer Email Point Com
+    [Documentation]    Génère email
+    ${prefixe}=          FakerLibrary.User Name
+    ${random_num}=       Generate Random String    3    [NUMBERS]
+    # On force l'extension .com ici
+    ${email}=            Set Variable    ${prefixe}${random_num}@testmail.com
+    RETURN               ${email}
+
+Ouvrir App
+    [Documentation]    Ouvrir l'application mobile.
+    Open Application    ${URL_APPIUM}
+    ...    platformName=Android
+    ...    appium:automationName=UIAutomator2
+    ...    appium:appPackage=openfoodfacts.github.scrachx.openfood
+    ...    appium:appActivity=org.openfoodfacts.app.MainActivity
+    ...    appium:noReset=${True}
+    ...    appium:newCommandTimeout=${3600}
+    ...    appium:connectHardwareKeyboard=${True}
+    Wait Until Page Contains    Scannez un code-barres ou recherchez un produit    timeout=15s
+    Wait Until Element Is Visible    accessibility_id=Chercher un produit    timeout=15s
