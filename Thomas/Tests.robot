@@ -103,6 +103,49 @@ Creation de Compte + Déconnexion + Reconnexion + Ajout produit
     Click Element   xpath=//android.widget.Button[@content-desc="Se connecter"]
     Wait Until Element Is Visible    ${el8}    timeout=15s
     Wait Until Page Contains    Merci d'être l'un de nos membres !    timeout=15s
+    # 3033710061983
+    ${el11}=    Set Variable     accessibility_id=Scanner
+    Click Element    ${el11}
+    
+SCROLL TEST
+    
+    ${el12}=    Set Variable     accessibility_id=Chercher un produit
+    Click Element    ${el12}
+    ${el13}=    Set Variable     class=android.widget.EditText
+    Click Element    ${el13}
+    Input Text    ${el13}    8000500119358
+    ${el14}=    Set Variable     accessibility_id=Rechercher
+    Click Element    ${el14}
+    
+# 1. On fait le swipe pour amener le bouton à l'écran
+    Swipe By Percent    90    95    5    95    duration=1000
+    Sleep    1s
+    Swipe By Percent    90    95    5    95    duration=1000
+   
+    ${el15}=    Set Variable     android=new UiSelector().className("android.widget.Button").instance(9)
+    Click Element    ${el15}
+    ${el16}=    Set Variable     accessibility_id=Ajouter une propriété
+    Click Element    ${el16}
+    ${props}=           Generer Pseudo Unique
+    ${valueProps}=     Generate Random String    12    [LETTERS][NUMBERS]
+    ${el17}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(0)
+    Click Element    ${el17}
+    Input Text    ${el17}    ${props}
+    ${el18}=    Set Variable     android=new UiSelector().className("android.widget.EditText").instance(1)
+    Click Element    ${el18}
+    Input Text    ${el18}    ${valueProps}
+    ${el19}=    Set Variable     xpath=//android.widget.Button[@content-desc="Enregistrer"]
+    Click Element    ${el19}
+    ${el20}=    Set Variable     xpath=//android.widget.Button[@content-desc="Retour"]
+    Click Element    ${el20}
+    Swipe By Percent    90    53    5    53    duration=1000
+    
+    Swipe By Percent    90    53    5    53    duration=1000
+    ${el21}=    Set Variable    android=new UiSelector().description("Folksonomie - Onglet 6 sur 6")
+    Click Element    ${el21}
+
+    # Element Should Be Visible  android=new UiSelector().description(${props}).instance(1)
+    # Element Should Be Visible android=new UiSelector().description(${valueProps}).instance(2)
 *** Keywords ***
 
 Generer Pseudo Unique
