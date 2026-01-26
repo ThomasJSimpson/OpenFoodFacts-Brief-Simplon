@@ -111,17 +111,20 @@ SCROLL TEST
     
     ${el12}=    Set Variable     accessibility_id=Chercher un produit
     Click Element    ${el12}
+    Sleep    2s
     ${el13}=    Set Variable     class=android.widget.EditText
     Click Element    ${el13}
     Input Text    ${el13}    8000500119358
     ${el14}=    Set Variable     accessibility_id=Rechercher
     Click Element    ${el14}
     
-# 1. On fait le swipe pour amener le bouton à l'écran
+
     Swipe By Percent    90    95    5    95    duration=1000
     Sleep    1s
+
     Swipe By Percent    90    95    5    95    duration=1000
-   
+   Sleep    1s
+
     ${el15}=    Set Variable     android=new UiSelector().className("android.widget.Button").instance(9)
     Click Element    ${el15}
     ${el16}=    Set Variable     accessibility_id=Ajouter une propriété
@@ -141,11 +144,14 @@ SCROLL TEST
     Swipe By Percent    90    53    5    53    duration=1000
     
     Swipe By Percent    90    53    5    53    duration=1000
-    ${el21}=    Set Variable    android=new UiSelector().description("Folksonomie - Onglet 6 sur 6")
+    Sleep    1s
+    ${el21}=    Set Variable    xpath=//android.view.View[contains(@content-desc,"Folksonomie")]
     Click Element    ${el21}
-
-    # Element Should Be Visible  android=new UiSelector().description(${props}).instance(1)
-    # Element Should Be Visible android=new UiSelector().description(${valueProps}).instance(2)
+    Sleep    1s
+    # Expect Element    android=new UiSelector().description("${props}")    visible
+    Expect Element    android=new UiSelector().description("usery6z6")    visible
+    # Expect Element    android=new UiSelector().description("${valueProps}")    visible
+    Expect Element    android=new UiSelector().description("Ks7GT9llfn9z")    visible
 *** Keywords ***
 
 Generer Pseudo Unique
