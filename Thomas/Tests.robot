@@ -13,6 +13,7 @@ Test Setup    Ouvrir App
 # Configuration Appium
 ${URL_APPIUM}    http://127.0.0.1:4723
 
+*** Test Cases ***
 
 Creation de Compte + Déco + Reco
 
