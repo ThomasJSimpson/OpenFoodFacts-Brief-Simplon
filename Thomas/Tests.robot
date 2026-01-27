@@ -1,24 +1,10 @@
 *** Settings ***
-Library     AppiumLibrary
-Test Setup    Ouvrir App
+Library         AppiumLibrary
 
-*** Keywords ***
-Ouvrir App
-    [Documentation]    Ouvrir l'application mobile pour préparer les tests suivants.
-    Open Application    http://127.0.0.1:4723
-    ...    platformName=Android
-    ...    appium:automationName=UIAutomator2
-    ...    appium:appPackage=com.wdiodemoapp
-    ...    appium:appActivity=.MainActivity
-    ...    appium:noReset=${True}
-    ...    appium:dontStopAppOnReset=${True}
-    ...    appium:ensureWebviewsHavePages=${True}
-    ...    appium:nativeWebScreenshot=${True}
-    ...    appium:newCommandTimeout=${3600}
-    ...    appium:connectHardwareKeyboard=${True}
+Test Setup      Ouvrir App
+
 
 *** Test Cases ***
-
 MyFirstTest
     [Documentation]    Test de la connexion "Login"
     Click Element    accessibility_id=Login
@@ -36,3 +22,19 @@ MyFirstTest
 
     Wait Until Page Does Not Contain    You are logged in!    timeout=5s
     Page Should Not Contain Text    You are logged in!
+
+
+*** Keywords ***
+Ouvrir App
+    [Documentation]    Ouvrir l'application mobile pour préparer les tests suivants.
+    Open Application    http://127.0.0.1:4723
+    ...    platformName=Android
+    ...    appium:automationName=UIAutomator2
+    ...    appium:appPackage=com.wdiodemoapp
+    ...    appium:appActivity=.MainActivity
+    ...    appium:noReset=${True}
+    ...    appium:dontStopAppOnReset=${True}
+    ...    appium:ensureWebviewsHavePages=${True}
+    ...    appium:nativeWebScreenshot=${True}
+    ...    appium:newCommandTimeout=${3600}
+    ...    appium:connectHardwareKeyboard=${True}
