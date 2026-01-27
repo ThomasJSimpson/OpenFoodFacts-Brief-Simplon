@@ -44,12 +44,14 @@ Création liste courses
     ${el14} =    Set Variable    class=android.widget.EditText
     Click Element    ${el14}
     Input Text    ${el14}    Ma liste de courses
+    Wait Until Element Is Visible    accessibility_id=Créer
     ${el15} =    Set Variable    accessibility_id=Créer
     Click Element    ${el15}
 
 Ajout de quenelles dans la liste de courses
     Click Element    ${SCANNER_LOCATOR}
     Click Element    accessibility_id=Chercher un produit
+    Wait Until Element Is Visible    class=android.widget.EditText
     Input Text    class=android.widget.EditText    quenelles
     Click Element    accessibility_id=Rechercher
     Wait Until Page Contains Element
@@ -71,7 +73,6 @@ Ajout de quenelles dans la liste de courses
 
 Supprimer les quenelles de la liste de courses
     Click Element    ${LISTES_LOCATOR}
-    # Click Element    ${MENU_LOCATOR}
     Click Element    android=new UiSelector().className("android.widget.Button").instance(0)
     ${el16} =    Set Variable    accessibility_id=Afficher le menu
     Click Element    ${el16}

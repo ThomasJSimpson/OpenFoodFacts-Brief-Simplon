@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 7.4.1 (Python 3.14.2 on win32)" name="Generator">
+<meta content="Robot Framework 7.3.2 (Python 3.13.9 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
 <style media="all">
 :root {
@@ -116,16 +116,15 @@ select {
 #header {
     width: 65em;
     height: 3em;
-    margin: 1em 0 0 0;
+    margin: 20px 0 6px 0;
 }
 h1 {
     float: left;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     width: 75%;
 }
 h2 {
     clear: left;
-    margin: 1.5em 0 0.5em 0;
 }
 #generated {
     float: right;
@@ -169,13 +168,7 @@ h2 {
     background-color: var(--primary-color);
     border-radius: 3px;
 }
-/* https://stackoverflow.com/questions/75238633 */
-@supports (-moz-appearance: none) {
-    .label {
-        padding-top: 4px;
-    }
-}
-.label.debug, .label.trace, .label.error {
+.label.debug, .label.trace, .label.error, .label.keyword {
     letter-spacing: 0;
 }
 .label.pass, .label.fail, .label.error, .label.skip, .label.warn {
@@ -362,6 +355,19 @@ th.stats-col-graph:hover {
 [data-theme="light"] .dark-mode-icon {
     display: block;
 }
+@keyframes highlight {
+    0% {
+        background: var(--primary-color)
+    }
+    100% {
+        background: var(--target-color);
+    }
+}
+:target {
+    background: var(--target-color);
+    transition: background 0.3s;
+    animation: highlight 4s;
+}
 </style>
 <style media="all">
 /* Icons are from Open Iconic <https://useiconic.com/open/>.
@@ -378,43 +384,36 @@ th.stats-col-graph:hover {
     --elapsed-color: #999;
 }
 /* Containers */
-.suite, .test, #errors, #errors .messages {
+.suite, .test, #errors {
     border-color: #ccc; /* Fallback value */
     border-color: var(--secondary-color);
     border-width: 1px;
     border-style: solid;
-    padding: 5px;
-    margin-top: 5px;
+    padding: 0.3em 0.2em;
+    margin: 0.2em 0;
 }
 .test {
     border-style: dashed;
 }
-.messages {
+#errors, .messages {
     width: 100%;
     border-spacing: 0;
-    padding: 0 5px;
 }
 .children {
     display: none;
-    margin-left: 18px;
-    margin-top: 2px;
+    margin-left: 1.4em;
 }
-#errors .children {
-    margin-left: 22px;
+.suite, .test, .keyword {
+    margin-left: -0.2em;
 }
-.suite, .test {
-    margin-left: -5px;
-}
-#s1, #errors {
-    margin: 0;
+#s1, .suite > .children > .keyword {
+    margin-left: 0;
 }
 /* Suite, test and kw headers */
 .element-header {
-    display: flex;
-    align-items: center;
-    padding: 2px;
     border: 1px solid transparent;
     border-radius: 2px;
+    position: relative;
 }
 .element-header:hover {
     cursor: pointer;
@@ -424,15 +423,17 @@ th.stats-col-graph:hover {
     border-color: var(--secondary-color);
 }
 .element-header-toggle {
-    margin: 0 4px 0 2px;
-    height: 11px;
-    width: 11px;
-    min-width: 11px;
-    background-size: 6px 6px;
+    position: absolute;
+    left: 3px;
+    top: 5px;
     background-repeat: no-repeat;
     background-position: center;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAQAAABKxSfDAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCR0JChSkZz20AAAAGklEQVQI12NgQAKMDKzInP8IDhOqMk4G7AAANQwBE427PYUAAAAASUVORK5CYII=);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0wIDB2Mmg4di0yaC04eiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAzKSIgLz4KPC9zdmc+), none;
     filter: var(--icon-filter);
+    height: 10px;
+    width: 10px;
+    background-size: 6px 6px;
     border-color: #ccc; /* Fallback value */
     border-color: var(--icon-highlight);
     border-width: 1px;
@@ -440,59 +441,67 @@ th.stats-col-graph:hover {
     border-radius: 2px;
 }
 .closed > .element-header-toggle {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAQAAABKxSfDAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCR0JCDHdVYtxAAAAM0lEQVQI103MMQqAMBQFwVHyITaB3P+W1sKzSBC3mW6hRFw0pUB5DvF1bu9FN0RM3X/wAk98CUnvFTakAAAAAElFTkSuQmCC);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0zIDB2M2gtM3YyaDN2M2gydi0zaDN2LTJoLTN2LTNoLTJ6IiAvPgo8L3N2Zz4=), none;
 }
 .element-header:hover > .element-header-toggle {
     background-color: #ccc; /* Fallback value */
     background-color: var(--icon-highlight);
 }
-.element-header-menu:hover ~ .element-header-toggle {
+.element-header-right:hover ~ .element-header-toggle {
     background-color: transparent;
 }
-.element-header-menu {
-    margin: 0 2px 0 4px;
+.element-header-left {
+    padding: 3px 80px 3px 20px;
+}
+.element-header-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 3px;
     cursor: default;
 }
-.name, .arg, .assign {
-    margin-left: 7px;
-    white-space: pre-wrap;
+.element-header .label {
+    margin-right: 0.5em;
 }
 .name {
     font-weight: bold;
+    white-space: pre-wrap;
+}
+.arg, .assign {
+    white-space: pre-wrap;
 }
 .elapsed {
-    margin-left: auto;
-    padding-left: 0.5em;
+    float: right;
     color: #666; /* Fallback value */
     color: var(--elapsed-color);
-    font-size: 0.9em;
-}
-/* https://stackoverflow.com/questions/75238633 */
-@supports (-moz-appearance: none) {
-    .name, .arg, .assign, .elapsed {
-        padding-top: 3px;
-    }
+    padding-left: 1em;
 }
 .link {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAHlJREFUGJVtzrEJwmAQBtCn6ASuIKTIBhY2gmghBiJYB1udwk10B8FJbKMBcQFbtbkfJHrVwfu+4/idJR64Y9H7E3higj5O3S8Y44ApLnjhnXCNGhV2yNGggDJwiC02gavUbpDFvscRo4QdXOMKDHBufz3HLYKzNn4AbSkV3fncGQYAAAAASUVORK5CYII=);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01Ljg4LjAzYy0uMTguMDEtLjM2LjAzLS41My4wOS0uMjcuMS0uNTMuMjUtLjc1LjQ3YS41LjUgMCAxIDAgLjY5LjY5Yy4xMS0uMTEuMjQtLjE3LjM4LS4yMi4zNS0uMTIuNzgtLjA3IDEuMDYuMjIuMzkuMzkuMzkgMS4wNCAwIDEuNDRsLTEuNSAxLjVjLS40NC40NC0uOC40OC0xLjA2LjQ3LS4yNi0uMDEtLjQxLS4xMy0uNDEtLjEzYS41LjUgMCAxIDAtLjUuODhzLjM0LjIyLjg0LjI1Yy41LjAzIDEuMi0uMTYgMS44MS0uNzhsMS41LTEuNWMuNzgtLjc4Ljc4LTIuMDQgMC0yLjgxLS4yOC0uMjgtLjYxLS40NS0uOTctLjUzLS4xOC0uMDQtLjM4LS4wNC0uNTYtLjAzem0tMiAyLjMxYy0uNS0uMDItMS4xOS4xNS0xLjc4Ljc1bC0xLjUgMS41Yy0uNzguNzgtLjc4IDIuMDQgMCAyLjgxLjU2LjU2IDEuMzYuNzIgMi4wNi40Ny4yNy0uMS41My0uMjUuNzUtLjQ3YS41LjUgMCAxIDAtLjY5LS42OWMtLjExLjExLS4yNC4xNy0uMzguMjItLjM1LjEyLS43OC4wNy0xLjA2LS4yMi0uMzktLjM5LS4zOS0xLjA0IDAtMS40NGwxLjUtMS41Yy40LS40Ljc1LS40NSAxLjAzLS40NC4yOC4wMS40Ny4wOS40Ny4wOWEuNS41IDAgMSAwIC40NC0uODhzLS4zNC0uMi0uODQtLjIyeiIKICAvPgo8L3N2Zz4=), none;
+    filter: var(--icon-filter);
 }
 .expand {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAADtJREFUGJVjYCACKDAwMByA0ljFDjAwMPxnYGB4ABVQgLL/Q+VQBB6gseGmIivCkERXhFUSWRFOSawAAEl7E3uv1iMcAAAAAElFTkSuQmCC);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0xLjUgMGwtMS41IDEuNSA0IDQgNC00LTEuNS0xLjUtMi41IDIuNS0yLjUtMi41eiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxKSIgLz4KPC9zdmc+), none;
+    filter: var(--icon-filter);
 }
 .collapse {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAC5JREFUGJVjYCARNEAxTsn/UIyhCFkSQxG6ThQ+C5IpjWhG1yNb4YDFTdjEMAEACi8Q++9Y9TAAAAAASUVORK5CYII=);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik00IDBsLTQgNCAxLjUgMS41IDIuNS0yLjUgMi41IDIuNSAxLjUtMS41LTQtNHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMSkiIC8+Cjwvc3ZnPg==), none;
+    filter: var(--icon-filter);
 }
 .expand, .collapse, .link {
     float: left;
     display: block;
     visibility: hidden;
-    margin: 0 3px;
+    margin: 0 4px;
     height: 14px;
     width: 14px;
     background-size: 8px 8px;
     background-repeat: no-repeat;
     background-position: center;
-    filter: var(--icon-filter);
     border-color: #ccc; /* Fallback value */
     border-color: var(--icon-highlight);
     border-width: 1px;
@@ -510,18 +519,23 @@ th.stats-col-graph:hover {
     background-color: var(--icon-highlight);
 }
 /* Messages and errors */
-.message-row {
-    height: 20px;
-}
 .messages .time, .messages .message {
     font-family: monospace;
     font-size: 1.1em;
 }
-.messages .time {
+#errors .message {
+    font-family: monospace;
+    font-size: 1.2em;
+}
+.message-row {
+    height: 20px;
+}
+.time {
     width: 7.5em;
 }
-#errors .time {
-    width: 12.5em;
+.error-time {
+    width: 11em;
+    font-size: 0.9em;
     white-space: nowrap;
 }
 .level {
@@ -541,6 +555,7 @@ th.stats-col-graph:hover {
     background-position: center;
 }
 .message-row:hover .select-message div {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCR0MOzhWKZQOAAAASUlEQVQY032PsRHAIAwDX9BkicD+W8UMEqegAQJWKZ/+3sLZJhFGQEZzNaIa4ibh66En867VNaIeoP5WppNuIGoAlOm3g5VC1AdYeQv1BZPRSgAAAABJRU5ErkJggg==);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0wIDB2MWg4di0xaC04em0wIDJ2MWg2di0xaC02em0wIDJ2MWg4di0xaC04em0wIDJ2MWg2di0xaC02eiIgLz4KPC9zdmc+), none;
     filter: var(--icon-filter);
     border-color: #ccc; /* Fallback value */
@@ -562,6 +577,7 @@ th.stats-col-graph:hover {
 .debug-message {
     display: table;
 }
+/* Metadata */
 .metadata {
     width: 100%;
     border-spacing: 0.2em;
@@ -580,20 +596,6 @@ th.stats-col-graph:hover {
 /* Custom styles for statistics */
 #total-stats tr:hover, #tag-stats tr:hover {
     cursor: default;
-}
-/* Target highlight */
-@keyframes highlight {
-    0% {
-        background: var(--primary-color)
-    }
-    100% {
-        background: var(--target-color);
-    }
-}
-:target {
-    background: var(--target-color);
-    transition: background 0.3s;
-    animation: highlight 4s;
 }
 </style>
 <style media="print">
@@ -739,8 +741,7 @@ function toggleElement(elementId, childrenNames) {
     children.toggle(100, '', function () {
         element.children('.element-header').toggleClass('closed');
     });
-    if (childrenNames)
-        populateChildren(elementId, children, childrenNames);
+    populateChildren(elementId, children, childrenNames);
 }
 function populateChildren(elementId, childElement, childrenNames) {
     if (!childElement.hasClass('populated')) {
@@ -1143,7 +1144,7 @@ window.model = (function () {
         kw.type = data.type;
         kw.template = 'keywordTemplate';
         kw.arguments = data.args;
-        kw.assign = data.assign;
+        kw.assign = data.assign + (data.assign ? ' =  ' : '');
         kw.tags = data.tags;
         kw.timeout = data.timeout;
         kw.populateKeywords = createIterablePopulator('Keyword');
@@ -1882,7 +1883,7 @@ function addStatistics() {
         '<th class="stats-col-elapsed">Elapsed</th>' +
         '<th class="stats-col-graph">Pass / Fail / Skip</th>';
     var statTable =
-        '<h2>Statistics</h2>' +
+        '<h2>{Test} Statistics</h2>' +
         '<table class="statistics" id="total-stats"><thead><tr>' +
         '<th class="stats-col-name">Total Statistics</th>' + statHeaders +
         '</tr></thead></table>' +
@@ -1892,7 +1893,7 @@ function addStatistics() {
         '<table class="statistics" id="suite-stats"><thead><tr>' +
         '<th class="stats-col-name">Statistics by Suite</th>' + statHeaders +
         '</tr></thead></table>';
-    $(statTable).appendTo('#statistics-container');
+    $(testOrTask(statTable)).appendTo('#statistics-container');
     util.map(['total', 'tag', 'suite'], addStatTable);
     addTooltipsToElapsedTimes();
     enableStatisticsSorter();
@@ -2073,31 +2074,31 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,42473],[[4,5,6,0,[],[1,37,42433],[[7,8,9,0,[],[1,68,42398],[],[[10,0,0,[],[1,265,8611],[[1,11,12,0,13,0,0,0,[1,268,3184],[[0,14,15,0,16,17,0,0,[1,269,3183],[]]]],[0,10,12,0,0,0,0,0,[1,3452,5331],[[0,18,19,0,20,21,22,0,[1,3452,1],[[3453,2,23]]],[0,24,15,0,25,22,0,0,[1,3453,945],[[3454,2,26]]],[0,18,19,0,20,21,27,0,[1,4398,1],[[4399,2,28]]],[0,24,15,0,25,27,0,0,[1,4399,588],[[4400,2,26]]],[0,18,19,0,20,29,30,0,[1,4987,1],[[4988,2,31]]],[0,24,15,0,25,30,0,0,[1,4988,811],[[4989,2,32]]],[0,18,19,0,20,33,34,0,[1,5800,1],[[5800,2,35]]],[0,24,15,0,25,34,0,0,[1,5801,1366],[[5802,2,36]]],[0,18,19,0,20,37,38,0,[1,7167,1],[[7168,2,39]]],[0,24,15,0,25,38,0,0,[1,7168,114],[[7169,2,40]]],[0,41,15,0,42,43,0,0,[1,7282,61],[[7283,2,44]]],[0,45,15,0,46,47,0,0,[1,7344,565],[]],[0,18,19,0,20,47,48,0,[1,7910,1],[[7910,2,49]]],[0,24,15,0,25,48,0,0,[1,7910,873],[[7911,2,50]]]]],[0,51,12,0,0,0,0,0,[1,8783,92],[[0,52,15,0,53,54,0,0,[1,8784,91],[]]]]]],[55,0,0,[],[1,8880,20597],[[1,11,12,0,13,0,0,0,[1,8882,3628],[[0,14,15,0,16,17,0,0,[1,8883,3627],[]]]],[0,55,12,0,0,0,0,0,[1,12511,16966],[[0,24,15,0,25,56,0,0,[1,12511,1506],[[12512,2,57]]],[0,24,15,0,25,58,0,0,[1,14018,490],[[14019,2,59]]],[0,45,15,0,46,37,0,0,[1,14508,1830],[]],[0,41,15,0,42,60,0,0,[1,16338,100],[[16339,2,61]]],[0,24,15,0,25,62,0,0,[1,16438,2731],[[16439,2,63]]],[0,64,15,0,65,66,0,0,[1,19169,423],[[19592,2,67]]],[0,24,15,0,25,68,0,0,[1,19593,1107],[[19595,2,69],[20700,2,67]]],[0,70,15,0,71,72,0,0,[1,20701,1322],[]],[0,24,15,0,25,73,0,0,[1,22023,1460],[[22024,2,74]]],[0,18,19,0,20,75,27,0,[1,23483,1],[[23484,2,76]]],[0,24,15,0,25,27,0,0,[1,23484,605],[[23485,2,77]]],[0,18,19,0,20,78,30,0,[1,24089,1],[[24089,2,79]]],[0,24,15,0,25,30,0,0,[1,24090,828],[[24091,2,80]]],[0,18,19,0,20,81,82,0,[1,24918,1],[[24919,2,83]]],[0,24,15,0,25,82,0,0,[1,24919,1064],[[24921,2,84]]],[0,18,19,0,20,81,85,0,[1,25983,1],[[25984,2,86]]],[0,24,15,0,25,85,0,0,[1,25985,1346],[[25986,2,84]]],[0,18,19,0,20,78,87,0,[1,27331,1],[[27331,2,88]]],[0,24,15,0,25,87,0,0,[1,27332,2145],[[27333,2,80]]]]]]],[89,0,0,[],[1,29481,12052],[[1,11,12,0,13,0,0,0,[1,29483,6259],[[0,14,15,0,16,17,0,0,[1,29484,6259],[]]]],[0,89,12,0,0,0,0,0,[1,35743,5789],[[0,24,15,0,25,90,0,0,[1,35744,799],[[35744,2,26]]],[0,24,15,0,25,91,0,0,[1,36543,1309],[[36544,2,92]]],[0,18,19,0,20,93,94,0,[1,37852,1],[[37852,2,95]]],[0,24,15,0,25,94,0,0,[1,37853,849],[[37854,2,96]]],[0,18,19,0,20,97,98,0,[1,38702,1],[[38703,2,99]]],[0,24,15,0,25,98,0,0,[1,38703,629],[[38704,2,100]]],[0,18,19,0,20,101,102,0,[1,39332,1],[[39332,2,103]]],[0,24,15,0,25,102,0,0,[1,39333,767],[[39334,2,104]]],[0,51,12,0,0,0,0,0,[1,40100,87],[[0,52,15,0,53,54,0,0,[1,40100,86],[]]]],[0,18,19,0,20,105,106,0,[1,40187,1],[[40187,2,107]]],[0,45,15,0,46,106,0,0,[1,40188,743],[]],[0,24,15,0,25,106,0,0,[1,40931,601],[[40932,2,57]]]]]]]],[[2,108,12,0,0,0,0,0,[1,41538,927],[[0,109,15,0,110,0,0,0,[1,41538,927],[]]]]],[3,3,0,0]]],[],[],[3,3,0,0]]],[],[],[3,3,0,0]];
+window.output["suite"] = [1,2,3,0,[],[0,0,62],[[4,5,4,0,[],[0,29,14],[[6,7,8,0,[],[0,31,11,9],[],[[10,0,0,[],[0,34,2,11],[[1,12,0,0,13,0,0,0,[0,34,2],[[0,14,0,0,0,15,0,0,[0,36,0],[[36,5,16]]]]]]],[17,0,0,[],[0,37,2,11],[[1,12,0,0,13,0,0,0,[0,38,1],[[0,14,0,0,0,15,0,0,[0,38,0],[[39,5,16]]]]]]],[18,0,0,[],[0,39,1,11],[[1,12,0,0,13,0,0,0,[0,40,1],[[0,14,0,0,0,15,0,0,[0,40,0],[[40,5,16]]]]]]]],[[2,19,0,0,0,0,0,0,[0,42,1],[[0,20,0,0,0,0,0,0,[0,42,0],[[42,5,21]]]]]],[3,0,3,0]]],[],[],[3,0,3,0]],[22,23,22,0,[],[0,44,5],[[6,24,25,0,[],[0,45,4],[],[[26,0,27,[],[0,47,1,28],[[1,12,0,0,13,0,0,0,[0,47,1],[[0,14,0,0,0,29,0,0,[0,48,0],[[48,5,16]]]]]]]],[],[1,0,1,0]]],[],[],[1,0,1,0]],[30,31,30,0,[],[0,49,6],[[6,32,33,0,[],[0,50,4],[],[[26,0,27,[],[0,53,2,28],[[1,12,0,0,13,0,0,0,[0,53,1],[[0,14,0,0,0,29,0,0,[0,54,0],[[54,5,16]]]]]]]],[],[1,0,1,0]]],[],[],[1,0,1,0]],[34,35,34,0,[],[0,56,7],[[6,36,37,0,[],[0,57,5,38],[],[[39,0,0,[],[0,60,0,40],[]]],[[1,41,0,0,0,0,0,0,[0,59,1],[[0,14,0,0,0,42,0,0,[0,60,0],[[60,5,16]]]]],[2,19,0,0,0,0,0,0,[0,61,1],[[0,20,0,0,0,0,0,0,[0,61,0],[[61,5,21]]]]]],[1,0,1,0]]],[],[],[1,0,1,0]]],[],[],[6,0,6,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*OpenFoodFacts-Brief-Simplon","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon","*..","*Eric","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Eric","*../Eric","*Tests","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Eric\\Tests.robot","*../Eric/Tests.robot","*Création liste courses","*Ouvrir App","*listes_keywords","*<p>Ouvrir l'application mobile\x3c/p>","*Open Application","*AppiumLibrary","eNqVkDFPAzEMhXd+hXVzdVbZQGmkClYoEhMTchK3ZzVNoiRX/j53HCgtTCxW/Py+J72opHeJQwGCwB9AKXmxVCUGqBHqwHCQMwfYpiTjCQrnM+ceHiiRES9VuEDcz1w7r2AbXI7igIID2b2u4MUzFQY7sD2CIhgy7zfdUGsq94gL3UtEF21BDnjbr+/wMIrjgpZSwU7/w6yQtMKkb1Ql4xlMzI7zplt3s5Tn4bQyU/O5qEIzuSflR36i0P8RH7nYLL8BXNK+IzOfYuX3MfuGvnFpy9UvQvNdx5AXuoCeY3tfnhYIvyrqT/yIlpM=","eNp1jltLw0AQhf9KKT5vLhULoSkEXxTxglYQpA/T3Ul20Z1ZNhNrEf+7iRJIoc68DOd8Z2ZWMLMR63JuRUKRJFm+VGnfWXG+zBfz9Ul5lcB61ld4B6k5+jvwWFZkIjsz6BCC63wBnbAHcUy/wPN19SdwzKdUCA+g36DBkgNSzWxq0NKqxontdqrVEbT9VKN5HK20uA8nh5Jjo47zvatuwdGITILEj9iilGdfm9jh98QxTPIkHKoQ7uk/iHB/yd4DmY3zyN3ALC7SdMpoJkItVxDNHiLe4GHH/XxiW39DHDXt6/B81PgSQGy2HckfqhKSGA==","*Set Variable","*BuiltIn","*<p>Returns the given values which can then be assigned to a variables.\x3c/p>","*accessibility_id=Listes","*${el11}","*${el11} = accessibility_id=Listes","*Click Element","*<p>Clicks the element identified by <code>locator\x3c/code>.\x3c/p>","*Clicking element 'accessibility_id=Listes'.","*${el1}","*${el1} = accessibility_id=Listes","*accessibility_id=Historique des produits consultés, Changer la liste actuelle","*${el2}","*${el2} = accessibility_id=Historique des produits consultés, Changer la liste actuelle","*Clicking element 'accessibility_id=Historique des produits consultés, Changer la liste actuelle'.","*accessibility_id=Créer une nouvelle liste","*${el13}","*${el13} = accessibility_id=Créer une nouvelle liste","*Clicking element 'accessibility_id=Créer une nouvelle liste'.","*class=android.widget.EditText","*${el14}","*${el14} = class=android.widget.EditText","*Clicking element 'class=android.widget.EditText'.","*Input Text","*<p>Types the given <code>text\x3c/code> into the text field identified by <code>locator\x3c/code>.\x3c/p>","*${el14}    Ma liste de courses","*Typing text 'Ma liste de courses' into text field 'class=android.widget.EditText'","*Wait Until Element Is Visible","*<p>Waits until the element specified by the <code>locator\x3c/code> is visible.\x3c/p>","*accessibility_id=Créer","*${el15}","*${el15} = accessibility_id=Créer","*Clicking element 'accessibility_id=Créer'.","*Bouton retour","*Press Keycode","*<p>Sends a press of <code>keycode\x3c/code> to the device.\x3c/p>","*4","*Ajout de quenelles dans la liste de courses","*${SCANNER_LOCATOR}","*Clicking element 'accessibility_id=Scanner'.","*accessibility_id=Chercher un produit","*Clicking element 'accessibility_id=Chercher un produit'.","*class=android.widget.EditText    quenelles","*Typing text 'quenelles' into text field 'class=android.widget.EditText'","*accessibility_id=Rechercher","*Clicking element 'accessibility_id=Rechercher'.","*Wait Until Page Contains Element","*<p>Waits until the element specified by the <code>locator\x3c/code> appears on the current page.\x3c/p>","*xpath=//*[contains(@content-desc,'Quenelles')]    10s","*xpath criteria: //*[contains(@content-desc,'Quenelles')]","*xpath=//*[contains(@content-desc,'Quenelles')]","*Clicking element 'xpath=//*[contains(@content-desc,'Quenelles')]'.","*Swipe","*<p>Swipes from one point to another point, for an optional <code>duration\x3c/code>.\x3c/p>","*start_x=918    start_y=2254    end_x=216    end_y=2254","*android=new UiSelector().className(\"android.widget.Button\").instance(10)","*Clicking element 'android=new UiSelector().className(\"android.widget.Button\").instance(10)'.","*accessibility_id=Ma liste de courses","*${el1} = accessibility_id=Ma liste de courses","*Clicking element 'accessibility_id=Ma liste de courses'.","*accessibility_id=Fermer","*${el2} = accessibility_id=Fermer","*Clicking element 'accessibility_id=Fermer'.","*accessibility_id=Retour","*${el3}","*${el3} = accessibility_id=Retour","*Clicking element 'accessibility_id=Retour'.","*${el4}","*${el4} = accessibility_id=Retour","*${el5}","*${el5} = accessibility_id=Fermer","*Supprimer les quenelles de la liste de courses","*${LISTES_LOCATOR}","*android=new UiSelector().className(\"android.widget.Button\").instance(0)","*Clicking element 'android=new UiSelector().className(\"android.widget.Button\").instance(0)'.","*accessibility_id=Afficher le menu","*${el16}","*${el16} = accessibility_id=Afficher le menu","*Clicking element 'accessibility_id=Afficher le menu'.","*accessibility_id=Vider la liste","*${el17}","*${el17} = accessibility_id=Vider la liste","*Clicking element 'accessibility_id=Vider la liste'.","*accessibility_id=Oui","*${el18}","*${el18} = accessibility_id=Oui","*Clicking element 'accessibility_id=Oui'.","*accessibility_id=Scanner","*${el19}","*${el19} = accessibility_id=Scanner","*Fermer Application","*Close Application","*<p>Closes the current application and the webdriver session.\x3c/p>"]);
+window.output["strings"] = window.output["strings"].concat(["*","*OpenFoodFacts-Brief-Simplon","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon","*.","*Eric","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Eric","*Tests","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Eric\\Tests.robot","*Eric/Tests.robot","*Suite teardown failed:\nNo keyword with name 'Close Application' found.","*Création liste courses","*Setup failed:\nNo keyword with name 'Open Application' found.\n\nAlso parent suite teardown failed:\nNo keyword with name 'Close Application' found.","*Ouvrir App","*<p>Ouvrir l'application mobile pour préparer les tests suivants.\x3c/p>","*Open Application","eNp1kEFLw0AQhf9KKZ6TtBULpSkELxVRi60oiIfpZpIsujPL7iSxiP/djRJIIe5clve+N8zMGiaVwyKdViJ2Fcez+TJKQs1Wl8v5YroZldcxbCbh2Q+Qgp25B4NpRrljnXc6WKtrs4Ja2IBopl/g6Sb7E9jNh5S1O1DvUGLKFqlgzgtQ4qNSS1UfI68cqOoz6s3zaKZEN1pOKbsyOs8HN7oDTT0yCBI/okdJL74OrsbvgZMzyV7YZtY+0H8Qkq8dPuOx0dj6LTS4C+P7EZLC+k1H7pXDEKt4rB9he83GAOUHbZDrjllcJcmQUUyESrbg8hYc3uLpyOE/0i3MLJpK/9odwyl8sSDV7K0nfwAwDa+r","*No keyword with name 'Open Application' found.","*Ajout de quenelles dans la liste de courses","*Supprimer les quenelles de la liste de courses","*Fermer Application","*Close Application","*No keyword with name 'Close Application' found.","*Hamza","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Hamza","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Hamza\\Tests.robot","*Hamza/Tests.robot","*MyFirstTest","*<p>Test de la connexion \"Login\"\x3c/p>","*Setup failed:\nNo keyword with name 'Open Application' found.","eNp1z1FLwzAQB/CvMobPbdeJg7IMii8TUYeb+HxLbjZo7kJ6aRnidzdVBhVq7iX555cjt4ZZE/Ck5o2Ir/J8Ua6yItWiul6Vy/lmMl7nsJml5T9AThzcIzhUNZnA1gw5eG+jqyAKOxDL9ANe7urfgEM5Vt7vQL/DGyrNLuuNZYOOU/wX1VpsZ+WssgewdDmNDPEztijq6vMQIn6NbgyT7IV97f0T/YeQ2hjwFY+dxb7dQoe79Kd2QlKaqRvkXgdMzxqe6kfY37JzQOZgHXIczPKmKMZGMxFq2UIwPQS8x/OR0/7S7RvEWI8j","*Kahina","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Kahina","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Kahina\\Tests.robot","*Kahina/Tests.robot","*Thomas","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Thomas","*C:\\Users\\Utilisateur\\Desktop\\OpenFoodFacts\\OpenFoodFacts-Brief-Simplon\\Thomas\\Tests.robot","*Thomas/Tests.robot","*Suite setup failed:\nNo keyword with name 'Open Application' found.\n\nAlso suite teardown failed:\nNo keyword with name 'Close Application' found.","*E2E - Recherche d’un produit","eNqFzDEOgzAMBdA9p/gbGwdgQ92hV7CIERapbSWOot6+a4dKfQd4T6qsgdYlGI2jO06SwnlJm+Hm97CaMSQuKL0Y0+6sWN2LHBRiOuG0rnlOaS3N4N9fMNVsQ/+Uj2KNf50fXxU4EQ==","*Ouvrir Application OpenFoodFacts","*${REMOTE_URL}    platformName=${PLATFORM}    appium:automationName=${AUTOMATION}    appium:appPackage=${APP_PACKAGE}    appium:appActivity=${APP_ACTIVITY}    appium:noReset=${True}    appium:connectHardwareKeyboard=${True}","eNqtkTFvAjEMhXd+hbdrh0Nq2W6jBUSl63ESx1ApS8gZGpHEkeOTSn99A6hDq27XyfaT/Ok9e8lMDDbAwTqE4rlSu4Sc1E6ss0kLDqwWmE5CUW0ihhVRv9JG0s+pfGKLh3JrfXQU1JKtUR0mSVOmPUkBFMDZgPBYwYuPxGLDMSt71nyGYh6jHXx9Gws46Gymr+CV+sFhQ7KiIfTLi9UKGgJ/1SFoj/3v5UnH2uBemxPceUoCjAaDgNHOgdNJ7qsJZEjASfvWrTdNO+/WF+nP6Jm90KJVTXlftUxH1j6p9izvOeatzB5mamvYxnyUa9opfuBYYPzupp82joUt6jqNZeT7jkT8gwOVrGAZ83P1EdMXdycA7g==","eNqtkTFvwkAMhXd+hbe0A0gtWzZaQFRKIRJhqHSLSQw9cXc++Ryp8Ot7UHVo1S2dbD/Jn96zFyIsYAMcrCMonkuzSyTJ7NQ6m1CpFzOndFKOZhMpLJm7Jbaafk7jJ7F0GG+tj46DWaG/oGkoaZoI71kL4ADOBoLHEl58ZFEbjlnZC8oZilmMtvfV11jAAbObroRX7npHa9Yl96FbXL2WsGbwNx0Ceup+L48awZb22J7gznNSEGopKLToHDhMel+OIEMCjeq3ZrVZ17NmdZX+zJ7Zc1Q0Fed9UwsfBX0y9Vnfc86vMn2Ymm0rNuar3NJO6IOGAuN3N7nYOBQ2r6o0lJHvOxDxDw5MskrjmJ+LR0qfn6oBXA==","eNqtkTFvwkAMhXd+hbe0A0gtWzZaQFRNIRJhqHSLkxg4cTmffI5U+ut7gDq06pZOtp/kT+/ZCxEWsB721hFkz7nZRZJodmqdjajUi5lTPCkHswnkl8ztEhuNP6fxk1jaj7e2C469ecWj9WgqihonwjVrBuzBWU/wmMNLF1jU+kNSakE5QzYLwfZdcRsz2GOy0+bwxm3vaM265N63i4vZHNYM3VUHjx21v5dHlWBDNTYnuOs4Kgg15BUadA4cRr3PR5Agnkble7XarMtZtbpIf4ZP7DkqmoLTvimFD4JdNOVZjynorUwfpmbbiA3pLNe0E/qgocDw3U0+bRgKmxdFHMpI9x2I+AcHJlqlcUjPxQPFL5s1Abc=","eNqtkTFvwkAMhXd+hbe0A0gtWzZaQFRKIRJhqHSLSQycuDuf7ItU+ut7UHVo1S2dbD/Jn96zFyIsYAMcrCMonkuzUxI1u2SdVUzUi5mTnhNHs4kUlszdEtukP6fxk1g6jLfWR8fBNCf2qKYhTToR3nMqgAM4GwgeS3jxkSXZcMzKXlAuUMxitL2vvsYCDpjtdCW8ctc7WnNach+6xdVsCWsGf9MhoKfu9/KoEWxpj+0Z7jxrAqGWQoIWnQOHmu7LEWRIoFH91qw263rWrK7Sn+Eze44JTcV539TCR0Gvpr6kUw76VaYPU7NtxcZ8llvaCb3TUGD87iYfNg6FzatKhzLyfQci/sGBUZtoHPNz8Uj6CefuAdc="]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:41","fail":0,"label":"All Tests","pass":3,"skip":0}],[],[{"elapsed":"00:00:42","fail":0,"id":"s1","label":"OpenFoodFacts-Brief-Simplon","name":"OpenFoodFacts-Brief-Simplon","pass":3,"skip":0},{"elapsed":"00:00:42","fail":0,"id":"s1-s1","label":"OpenFoodFacts-Brief-Simplon.Eric","name":"Eric","pass":3,"skip":0},{"elapsed":"00:00:42","fail":0,"id":"s1-s1-s1","label":"OpenFoodFacts-Brief-Simplon.Eric.Tests","name":"Tests","pass":3,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:00","fail":6,"label":"All Tests","pass":0,"skip":0}],[],[{"elapsed":"00:00:00","fail":6,"id":"s1","label":"OpenFoodFacts-Brief-Simplon","name":"OpenFoodFacts-Brief-Simplon","pass":0,"skip":0},{"elapsed":"00:00:00","fail":3,"id":"s1-s1","label":"OpenFoodFacts-Brief-Simplon.Eric","name":"Eric","pass":0,"skip":0},{"elapsed":"00:00:00","fail":3,"id":"s1-s1-s1","label":"OpenFoodFacts-Brief-Simplon.Eric.Tests","name":"Tests","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s2","label":"OpenFoodFacts-Brief-Simplon.Hamza","name":"Hamza","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s2-s1","label":"OpenFoodFacts-Brief-Simplon.Hamza.Tests","name":"Tests","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s3","label":"OpenFoodFacts-Brief-Simplon.Kahina","name":"Kahina","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s3-s1","label":"OpenFoodFacts-Brief-Simplon.Kahina.Tests","name":"Tests","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s4","label":"OpenFoodFacts-Brief-Simplon.Thomas","name":"Thomas","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"id":"s1-s4-s1","label":"OpenFoodFacts-Brief-Simplon.Thomas.Tests","name":"Tests","pass":0,"skip":0}]];
 </script>
 <script type="text/javascript">
-window.output["errors"] = [];
+window.output["errors"] = [[33,4,43],[46,4,44],[52,4,45],[59,4,46]];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1769442742055;
+window.output["baseMillis"] = 1769420979057;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 42497;
+window.output["generated"] = 83;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;
 </script>
 <script type="text/javascript">
-window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","rpa":false,"splitLogBase":"log","title":""};
+window.settings = {"defaultLevel":"INFO","minLevel":"FAIL","reportURL":"report.html","rpa":false,"splitLogBase":"log","title":""};
 </script>
 <title></title>
 </head>
@@ -2153,9 +2154,8 @@ function addErrors() {
     var errors = window.testdata.errorIterator();
     if (errors.hasNext()) {
         $.tmpl('errorHeaderTemplate').appendTo($('body'));
-        drawErrorsRecursively(errors, $('#errors .messages'));
+        drawErrorsRecursively(errors, $('#errors'));
     }
-    toggleElement('errors');
 }
 
 function drawErrorsRecursively(errors, target) {
@@ -2189,7 +2189,7 @@ function makeElementVisible(id) {
 }
 
 function addExecutionLog(main) {
-    $('body').append('<h2>Execution Log</h2>',
+    $('body').append($(testOrTask('<h2>{Test} Execution Log</h2>')),
                      $.tmpl('suiteTemplate', main));
 }
 </script>
@@ -2234,31 +2234,20 @@ function addExecutionLog(main) {
 </script>
 
 <script type="text/x-jquery-tmpl" id="errorHeaderTemplate">
-  <h2>Execution Errors</h2>
-  <div id="errors">
-    <div class="element-header closed" onclick="toggleElement('errors')">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label error">ERRORS</div>
-      <div class="name">Errors and warnings during execution</div>
-    </div>
-    <div class="children">
-      <table class="messages"></table>
-    </div>
-  </div>
+  <h2>{{= testOrTask('{Test}')}} Execution Errors</h2>
+  <table id="errors"></table>
 </script>
 
 <script type="text/x-jquery-tmpl" id="errorTemplate">
   <tr id="${id}" class="message-row">
-    <td class="time">
+    <td class="error-time">
       {{if link}}
       <a onclick="makeElementVisible('${link}')" href="#${link}" title="Link to details">${date} ${time}</a>
       {{else}}
       ${date} ${time}
       {{/if}}
     </td>
-    <td class="${level.toLowerCase()} level">
-      <span class="label ${level.toLowerCase()}">${level}</span>
-    </td>
+    <td class="${level.toLowerCase()} level"><span class="label ${level.toLowerCase()}">${level}</span></td>
     <td class="message">{{html text}}</td>
     <td class="select-message" onclick="javascript:selectMessage('${id}')" title="Select message text">
       <div></div>
@@ -2268,18 +2257,18 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="suiteTemplate">
   <div id="${id}" class="suite">
-    <div class="element-header closed" onclick="toggleSuite('${id}')"
-         title="SUITE  {{html name}}  [${status}]">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label ${status.toLowerCase()}">SUITE</div>
-      <div class="name">{{html name}}</div>
-      <div class="elapsed" title="Elapsed time">${times.elapsedTime}</div>
-      <div class="element-header-menu" onclick="stopPropagation(event)" title="">
+    <div class="element-header closed" onclick="toggleSuite('${id}')">
+      <div class="element-header-left" title="SUITE  {{html name}}  [${status}]">
+        <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
+        <span class="label ${status.toLowerCase()}">SUITE</span>
+        <span class="name">{{html name}}</span>
+      </div>
+      <div class="element-header-right" onclick="stopPropagation(event)" title="">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" onclick="makeElementVisible('${id}')"
-           title="Link to this suite" href="#${id}"></a>
+        <a class="link" title="Link to this suite" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
+      <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
     <div class="children">
       <table class="metadata">
@@ -2330,18 +2319,18 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="testTemplate">
   <div id="${id}" class="test">
-    <div class="element-header closed" onclick="toggleTest('${id}')"
-         title="{{= testOrTask('{TEST}')}}  {{html name}}  [${status}]">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label ${status.toLowerCase()}">{{= testOrTask('{TEST}')}}</div>
-      <div class="name">{{html name}}</div>
-      <div class="elapsed" title="Elapsed time">${times.elapsedTime}</div>
-      <div class="element-header-menu" onclick="stopPropagation(event)" title="">
+    <div class="element-header closed" onclick="toggleTest('${id}')">
+      <div class="element-header-left" title="{{= testOrTask('{TEST}')}}  {{html name}}  [${status}]">
+        <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
+        <span class="label ${status.toLowerCase()}">{{= testOrTask('{TEST}')}}</span>
+        <span class="name">{{html name}}</span>
+      </div>
+      <div class="element-header-right" onclick="stopPropagation(event)" title="">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" href="#${id}" onclick="makeElementVisible('${id}')"
-           title="Link to this {{= testOrTask('{test}')}}"></a>
+        <a class="link" title="Link to this {{= testOrTask('{test}')}}" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
+      <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
     <div class="children">
       <table class="metadata">
@@ -2388,20 +2377,21 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="keywordTemplate">
   <div id="${id}" class="keyword">
-    <div class="element-header closed" onclick="toggleKeyword('${id}')"
-         title="${type}  {{if name}}{{html fullName}}  {{/if}}[${status}]">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label ${status.toLowerCase()}">${type}</div>
-      {{if assign}}<div class="assign">{{html assign}}&nbsp;=</div>{{/if}}
-      <div class="name">{{if libname}}<span class="parent-name">{{html libname}} . </span>{{/if}}{{html name}}</div>
-      <div class="arg">{{html arguments}}</div>
-      <div class="elapsed" title="Elapsed time">${times.elapsedTime}</div>
-      <div class="element-header-menu" onclick="stopPropagation(event)">
+    <div class="element-header closed" onclick="toggleKeyword('${id}')">
+      <div class="element-header-left" title="${type}  {{if name}}{{html fullName}}  {{/if}}[${status}]">
+        <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
+        <span class="label ${status.toLowerCase()}">${type}</span>
+        <span class="assign">{{html assign}}</span>
+        <span class="name"><span class="parent-name">{{html libname}}{{if libname}} . {{/if}}</span>{{html name}}</span>
+        &nbsp;
+        <span class="arg">{{html arguments}}</span>
+      </div>
+      <div class="element-header-right" onclick="stopPropagation(event)">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" onclick="makeElementVisible('${id}')"
-           title="Link to this item" href="#${id}"></a>
+        <a class="link" title="Link to this item" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
+      <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
     <div class="children">
       <table class="metadata keyword-metadata">

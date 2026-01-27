@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.9 on win32)" generated="2026-01-26T10:49:39.056178" rpa="false" schemaversion="5">
+<suite id="s1" name="OpenFoodFacts-Brief-Simplon" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon">
+<suite id="s1-s1" name="Eric" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Eric">
+<suite id="s1-s1-s1" name="Tests" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Eric\Tests.robot">
+<test id="s1-s1-s1-t1" name="Création liste courses" line="19">
+<kw name="Ouvrir App" type="SETUP">
+<kw name="Open Application">
+<msg time="2026-01-26T10:49:39.092627" level="FAIL">No keyword with name 'Open Application' found.</msg>
+<arg>http://127.0.0.1:4723</arg>
+<arg>platformName=Android</arg>
+<arg>appium:automationName=UIAutomator2</arg>
+<arg>appium:appPackage=openfoodfacts.github.scrachx.openfood</arg>
+<arg>appium:appActivity=org.openfoodfacts.app.MainActivity</arg>
+<arg>appium:noReset=${True}</arg>
+<arg>appium:dontStopAppOnReset=${True}</arg>
+<arg>appium:ensureWebviewsHavePages=${True}</arg>
+<arg>appium:nativeWebScreenshot=${True}</arg>
+<arg>appium:newCommandTimeout=${3600}</arg>
+<arg>appium:connectHardwareKeyboard=${True}</arg>
+<arg>appium:settings[enforceXpath1]=${True}</arg>
+<status status="FAIL" start="2026-01-26T10:49:39.092589" elapsed="0.000121">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Ouvrir l'application mobile pour préparer les tests suivants.</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.091339" elapsed="0.001539">No keyword with name 'Open Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.090701" elapsed="0.002451">Setup failed:
+No keyword with name 'Open Application' found.</status>
+</test>
+<test id="s1-s1-s1-t2" name="Ajout de quenelles dans la liste de courses" line="23">
+<kw name="Ouvrir App" type="SETUP">
+<kw name="Open Application">
+<msg time="2026-01-26T10:49:39.095523" level="FAIL">No keyword with name 'Open Application' found.</msg>
+<arg>http://127.0.0.1:4723</arg>
+<arg>platformName=Android</arg>
+<arg>appium:automationName=UIAutomator2</arg>
+<arg>appium:appPackage=openfoodfacts.github.scrachx.openfood</arg>
+<arg>appium:appActivity=org.openfoodfacts.app.MainActivity</arg>
+<arg>appium:noReset=${True}</arg>
+<arg>appium:dontStopAppOnReset=${True}</arg>
+<arg>appium:ensureWebviewsHavePages=${True}</arg>
+<arg>appium:nativeWebScreenshot=${True}</arg>
+<arg>appium:newCommandTimeout=${3600}</arg>
+<arg>appium:connectHardwareKeyboard=${True}</arg>
+<arg>appium:settings[enforceXpath1]=${True}</arg>
+<status status="FAIL" start="2026-01-26T10:49:39.095499" elapsed="0.000057">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Ouvrir l'application mobile pour préparer les tests suivants.</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.094560" elapsed="0.001099">No keyword with name 'Open Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.094185" elapsed="0.001627">Setup failed:
+No keyword with name 'Open Application' found.</status>
+</test>
+<test id="s1-s1-s1-t3" name="Supprimer les quenelles de la liste de courses" line="50">
+<kw name="Ouvrir App" type="SETUP">
+<kw name="Open Application">
+<msg time="2026-01-26T10:49:39.097368" level="FAIL">No keyword with name 'Open Application' found.</msg>
+<arg>http://127.0.0.1:4723</arg>
+<arg>platformName=Android</arg>
+<arg>appium:automationName=UIAutomator2</arg>
+<arg>appium:appPackage=openfoodfacts.github.scrachx.openfood</arg>
+<arg>appium:appActivity=org.openfoodfacts.app.MainActivity</arg>
+<arg>appium:noReset=${True}</arg>
+<arg>appium:dontStopAppOnReset=${True}</arg>
+<arg>appium:ensureWebviewsHavePages=${True}</arg>
+<arg>appium:nativeWebScreenshot=${True}</arg>
+<arg>appium:newCommandTimeout=${3600}</arg>
+<arg>appium:connectHardwareKeyboard=${True}</arg>
+<arg>appium:settings[enforceXpath1]=${True}</arg>
+<status status="FAIL" start="2026-01-26T10:49:39.097347" elapsed="0.000049">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Ouvrir l'application mobile pour préparer les tests suivants.</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.096647" elapsed="0.000848">No keyword with name 'Open Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.096355" elapsed="0.001343">Setup failed:
+No keyword with name 'Open Application' found.</status>
+</test>
+<kw name="Fermer Application" type="TEARDOWN">
+<kw name="Close Application">
+<msg time="2026-01-26T10:49:39.099191" level="FAIL">No keyword with name 'Close Application' found.</msg>
+<status status="FAIL" start="2026-01-26T10:49:39.099155" elapsed="0.000063">No keyword with name 'Close Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.098559" elapsed="0.000737">No keyword with name 'Close Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.088072" elapsed="0.011294">Suite teardown failed:
+No keyword with name 'Close Application' found.</status>
+</suite>
+<status status="FAIL" start="2026-01-26T10:49:39.086423" elapsed="0.013644"/>
+</suite>
+<suite id="s1-s2" name="Hamza" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Hamza">
+<suite id="s1-s2-s1" name="Tests" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Hamza\Tests.robot">
+<test id="s1-s2-s1-t1" name="MyFirstTest" line="22">
+<kw name="Ouvrir App" type="SETUP">
+<kw name="Open Application">
+<msg time="2026-01-26T10:49:39.104992" level="FAIL">No keyword with name 'Open Application' found.</msg>
+<arg>http://127.0.0.1:4723</arg>
+<arg>platformName=Android</arg>
+<arg>appium:automationName=UIAutomator2</arg>
+<arg>appium:appPackage=com.wdiodemoapp</arg>
+<arg>appium:appActivity=.MainActivity</arg>
+<arg>appium:noReset=${True}</arg>
+<arg>appium:dontStopAppOnReset=${True}</arg>
+<arg>appium:ensureWebviewsHavePages=${True}</arg>
+<arg>appium:nativeWebScreenshot=${True}</arg>
+<arg>appium:newCommandTimeout=${3600}</arg>
+<arg>appium:connectHardwareKeyboard=${True}</arg>
+<status status="FAIL" start="2026-01-26T10:49:39.104972" elapsed="0.000051">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Ouvrir l'application mobile pour préparer les tests suivants.</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.104343" elapsed="0.000782">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Test de la connexion "Login"</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.104010" elapsed="0.001255">Setup failed:
+No keyword with name 'Open Application' found.</status>
+</test>
+<status status="FAIL" start="2026-01-26T10:49:39.101863" elapsed="0.003714"/>
+</suite>
+<status status="FAIL" start="2026-01-26T10:49:39.100576" elapsed="0.005467"/>
+</suite>
+<suite id="s1-s3" name="Kahina" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Kahina">
+<suite id="s1-s3-s1" name="Tests" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Kahina\Tests.robot">
+<test id="s1-s3-s1-t1" name="MyFirstTest" line="22">
+<kw name="Ouvrir App" type="SETUP">
+<kw name="Open Application">
+<msg time="2026-01-26T10:49:39.110580" level="FAIL">No keyword with name 'Open Application' found.</msg>
+<arg>http://127.0.0.1:4723</arg>
+<arg>platformName=Android</arg>
+<arg>appium:automationName=UIAutomator2</arg>
+<arg>appium:appPackage=com.wdiodemoapp</arg>
+<arg>appium:appActivity=.MainActivity</arg>
+<arg>appium:noReset=${True}</arg>
+<arg>appium:dontStopAppOnReset=${True}</arg>
+<arg>appium:ensureWebviewsHavePages=${True}</arg>
+<arg>appium:nativeWebScreenshot=${True}</arg>
+<arg>appium:newCommandTimeout=${3600}</arg>
+<arg>appium:connectHardwareKeyboard=${True}</arg>
+<status status="FAIL" start="2026-01-26T10:49:39.110559" elapsed="0.000055">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Ouvrir l'application mobile pour préparer les tests suivants.</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.109931" elapsed="0.000804">No keyword with name 'Open Application' found.</status>
+</kw>
+<doc>Test de la connexion "Login"</doc>
+<status status="FAIL" start="2026-01-26T10:49:39.109511" elapsed="0.001688">Setup failed:
+No keyword with name 'Open Application' found.</status>
+</test>
+<status status="FAIL" start="2026-01-26T10:49:39.107302" elapsed="0.004355"/>
+</suite>
+<status status="FAIL" start="2026-01-26T10:49:39.106399" elapsed="0.005797"/>
+</suite>
+<suite id="s1-s4" name="Thomas" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Thomas">
+<suite id="s1-s4-s1" name="Tests" source="C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Thomas\Tests.robot">
+<kw name="Ouvrir Application OpenFoodFacts" type="SETUP">
+<kw name="Open Application">
+<msg time="2026-01-26T10:49:39.116773" level="FAIL">No keyword with name 'Open Application' found.</msg>
+<arg>${REMOTE_URL}</arg>
+<arg>platformName=${PLATFORM}</arg>
+<arg>appium:automationName=${AUTOMATION}</arg>
+<arg>appium:appPackage=${APP_PACKAGE}</arg>
+<arg>appium:appActivity=${APP_ACTIVITY}</arg>
+<arg>appium:noReset=${True}</arg>
+<arg>appium:connectHardwareKeyboard=${True}</arg>
+<status status="FAIL" start="2026-01-26T10:49:39.116752" elapsed="0.000057">No keyword with name 'Open Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.116174" elapsed="0.000719">No keyword with name 'Open Application' found.</status>
+</kw>
+<test id="s1-s4-s1-t1" name="E2E - Recherche d’un produit" line="17">
+<status status="FAIL" start="2026-01-26T10:49:39.116946" elapsed="0.000304">Parent suite setup failed:
+No keyword with name 'Open Application' found.</status>
+</test>
+<kw name="Fermer Application" type="TEARDOWN">
+<kw name="Close Application">
+<msg time="2026-01-26T10:49:39.118347" level="FAIL">No keyword with name 'Close Application' found.</msg>
+<status status="FAIL" start="2026-01-26T10:49:39.118325" elapsed="0.000051">No keyword with name 'Close Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.117754" elapsed="0.000707">No keyword with name 'Close Application' found.</status>
+</kw>
+<status status="FAIL" start="2026-01-26T10:49:39.113899" elapsed="0.004601">Suite setup failed:
+No keyword with name 'Open Application' found.
+
+Also suite teardown failed:
+No keyword with name 'Close Application' found.</status>
+</suite>
+<status status="FAIL" start="2026-01-26T10:49:39.112595" elapsed="0.006603"/>
+</suite>
+<status status="FAIL" start="2026-01-26T10:49:39.057391" elapsed="0.062356"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="6" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="OpenFoodFacts-Brief-Simplon" id="s1" pass="0" fail="6" skip="0">OpenFoodFacts-Brief-Simplon</stat>
+<stat name="Eric" id="s1-s1" pass="0" fail="3" skip="0">OpenFoodFacts-Brief-Simplon.Eric</stat>
+<stat name="Tests" id="s1-s1-s1" pass="0" fail="3" skip="0">OpenFoodFacts-Brief-Simplon.Eric.Tests</stat>
+<stat name="Hamza" id="s1-s2" pass="0" fail="1" skip="0">OpenFoodFacts-Brief-Simplon.Hamza</stat>
+<stat name="Tests" id="s1-s2-s1" pass="0" fail="1" skip="0">OpenFoodFacts-Brief-Simplon.Hamza.Tests</stat>
+<stat name="Kahina" id="s1-s3" pass="0" fail="1" skip="0">OpenFoodFacts-Brief-Simplon.Kahina</stat>
+<stat name="Tests" id="s1-s3-s1" pass="0" fail="1" skip="0">OpenFoodFacts-Brief-Simplon.Kahina.Tests</stat>
+<stat name="Thomas" id="s1-s4" pass="0" fail="1" skip="0">OpenFoodFacts-Brief-Simplon.Thomas</stat>
+<stat name="Tests" id="s1-s4-s1" pass="0" fail="1" skip="0">OpenFoodFacts-Brief-Simplon.Thomas.Tests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-01-26T10:49:39.090002" level="ERROR">Error in file 'C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Eric\Tests.robot' on line 2: Importing library 'AppiumLibrary' failed: ModuleNotFoundError: No module named 'AppiumLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Scripts\robot.exe
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\python313.zip
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\DLLs
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib\site-packages</msg>
+<msg time="2026-01-26T10:49:39.103496" level="ERROR">Error in file 'C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Hamza\Tests.robot' on line 2: Importing library 'AppiumLibrary' failed: ModuleNotFoundError: No module named 'AppiumLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Scripts\robot.exe
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\python313.zip
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\DLLs
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib\site-packages</msg>
+<msg time="2026-01-26T10:49:39.108927" level="ERROR">Error in file 'C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Kahina\Tests.robot' on line 2: Importing library 'AppiumLibrary' failed: ModuleNotFoundError: No module named 'AppiumLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Scripts\robot.exe
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\python313.zip
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\DLLs
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib\site-packages</msg>
+<msg time="2026-01-26T10:49:39.115623" level="ERROR">Error in file 'C:\Users\Utilisateur\Desktop\OpenFoodFacts\OpenFoodFacts-Brief-Simplon\Thomas\Tests.robot' on line 2: Importing library 'AppiumLibrary' failed: ModuleNotFoundError: No module named 'AppiumLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Scripts\robot.exe
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\python313.zip
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\DLLs
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313
+  C:\Users\Utilisateur\AppData\Local\Programs\Python\Python313\Lib\site-packages</msg>
+</errors>
+</robot>
