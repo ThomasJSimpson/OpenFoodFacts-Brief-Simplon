@@ -1,38 +1,38 @@
 *** Settings ***
-Library     AppiumLibrary
-Test Setup    Ouvrir App
+Library             AppiumLibrary
 
-*** Keywords ***
-Ouvrir App
-    [Documentation]    Ouvrir l'application mobile pour préparer les tests suivants.
-    Open Application    http://127.0.0.1:4723
-    ...    platformName=Android
-    ...    appium:automationName=UIAutomator2
-    ...    appium:appPackage=com.wdiodemoapp
-    ...    appium:appActivity=.MainActivity
-    ...    appium:noReset=${True}
-    ...    appium:dontStopAppOnReset=${True}
-    ...    appium:ensureWebviewsHavePages=${True}
-    ...    appium:nativeWebScreenshot=${True}
-    ...    appium:newCommandTimeout=${3600}
-    ...    appium:connectHardwareKeyboard=${True}
+Suite Setup         Ouvrir Application OpenFoodFacts
+Suite Teardown      Fermer Application
+
+
+*** Variables ***
+${REMOTE_URL}       http://127.0.0.1:4723
+${PLATFORM}         Android
+${AUTOMATION}       UIAutomator2
+${APP_PACKAGE}      openfoodfacts.github.scrachx.openfood
+${APP_ACTIVITY}     org.openfoodfacts.app.MainActivity
+
 
 *** Test Cases ***
+E2E - Recherche d’un produit
+    Rechercher Un Produit    nutella
 
-MyFirstTest
-    [Documentation]    Test de la connexion "Login"
-    Click Element    accessibility_id=Login
-    Wait Until Page Contains    Login / Sign up    timeout=10s
 
-    Input Text    accessibility_id=input-email    test@gmail.com
-    Input Text    accessibility_id=input-password    bonjouwwwww
+*** Keywords ***
+Ouvrir Application OpenFoodFacts
+    Open Application    ${REMOTE_URL}
+    ...    platformName=${PLATFORM}
+    ...    appium:automationName=${AUTOMATION}
+    ...    appium:appPackage=${APP_PACKAGE}
+    ...    appium:appActivity=${APP_ACTIVITY}
+    ...    appium:noReset=${True}
+    ...    appium:connectHardwareKeyboard=${True}
 
-    Click Element    accessibility_id=button-LOGIN
+Fermer Application
+    Close Application
 
-    Wait Until Page Contains    You are logged in!    timeout=10s
-    Page Should Contain Text    You are logged in!
-
-    Click Element    id=android:id/button1
-
-    Wait Until Page Does Not Contain    You are logged in!    timeout=5s
-    Page Should Not Contain Text    You are logged in!
+Rechercher Un Produit
+    [Arguments]    ${produit}
+    Click Element    accessibility_id=Chercher un produit
+    Input Text    class=android.widget.EditText    ${produit}
+    Click Element    accessibility_id=Rechercher
